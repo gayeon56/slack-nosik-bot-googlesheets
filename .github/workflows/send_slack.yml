@@ -1,9 +1,9 @@
 name: Send Slack Message
 
 on:
-  workflow_dispatch:  # 수동 실행 버튼 허용
+  workflow_dispatch:
   schedule:
-    - cron: '0 6 * * 1-5'  # 매주 월~금, 한국 시간 오후 3시 (UTC 기준 오전 6시)
+    - cron: '0 6 * * 1-5'  # 매주 월~금, 한국 시간 오후 3시
 
 jobs:
   send:
@@ -20,6 +20,10 @@ jobs:
 
       - name: Install dependencies
         run: pip install slack_sdk gspread oauth2client
+
+      - name: Save credentials.json
+        run: |
+          echo "${{ secrets.GOOGLE_CREDENTIALS }}" > credentials.json
 
       - name: Run Slack bot
         env:
