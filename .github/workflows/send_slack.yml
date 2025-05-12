@@ -1,0 +1,23 @@
+name: Send Slack Message
+
+on:
+  workflow_dispatch:  # 수동 실행 허용
+  schedule:
+    - cron: '0 6 * * 1-5'  # 매주 월~금, 한국시간 오후 3시 (UTC 오전 6시)
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.13'
+      - name: Install dependencies
+        run: pip install slack_sdk gspread oauth2client
+      - name: Run Slack bot
+        env:
+          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+        run: python daily_slack_bot2.py
