@@ -21,9 +21,8 @@ jobs:
       - name: Install dependencies
         run: pip install slack_sdk gspread oauth2client
 
-      - name: Save credentials.json
-        run: |
-          echo "${{ secrets.GOOGLE_CREDENTIALS }}" > credentials.json
+      - name: Save credentials.json from base64
+        run: echo "${{ secrets.GOOGLE_CREDENTIALS_B64 }}" | base64 -d > credentials.json
 
       - name: Run Slack bot
         env:
