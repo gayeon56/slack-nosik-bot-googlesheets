@@ -3,7 +3,7 @@ name: Send Slack Message
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 2 * * 1-5'  # 매주 월~금, 한국 시간 오전 10시, 테스트용이고 오후시간으로 변경예정
+    - cron: '0 4 * * 1-5'  # 매주 월~금, 한국 시간 오전 10시, 테스트용이고 오후시간으로 변경예정
 
 jobs:
   send:
